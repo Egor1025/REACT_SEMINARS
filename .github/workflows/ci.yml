@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: task07/package-lock.json
+
+      - name: Install deps
+        working-directory: task07
+        run: npm ci
+
+      - name: Lint
+        working-directory: task07
+        run: npm run lint
+
+      - name: Test
+        working-directory: task07
+        run: npm run test
+
+      - name: Prettier check
+        working-directory: task07
+        run: npm run format:check
