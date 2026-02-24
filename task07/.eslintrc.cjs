@@ -25,6 +25,6 @@ module.exports = {
         'plugin:react-refresh/recommended',
         'plugin:prettier/recommended'
     ],
-    ignorePatterns: ['dist', 'node_modules'],
+    ignorePatterns: ['node_modules'],
     rules: {}
 }

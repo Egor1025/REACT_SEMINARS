@@ -7,7 +7,6 @@ import {
   type User
 } from './services/usersApi'
 import { axiosClient } from './services/axiosClient'
-import { UsersList } from './components/UsersList'
 
 function App() {
   const { data: users, isLoading, isError } = useGetUsersQuery()
@@ -100,7 +99,24 @@ function App() {
         <h2>Список (RTK Query)</h2>
         {isLoading && <p>Загрузка...</p>}
         {isError && <p>Ошибка загрузки</p>}
-        {users && <UsersList users={users} onEdit={handleSelectEditUser} />}
+        {users && (
+          <ul className="user-list">
+            {users.map((user) => (
+              <li key={user.id} className="user-item">
+                <div className="user-main">
+                  <span className="user-name">{user.name}</span>
+                  <span className="user-email">{user.email}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleSelectEditUser(user)}
+                >
+                  Редактировать
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <section className="block">
